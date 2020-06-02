@@ -1,0 +1,60 @@
+.Control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+
+  button {
+    display: block;
+    padding: 5px;
+    margin: 0 5px;
+    border: 1px solid #AA6817;
+    cursor: pointer;
+    outline: none;
+    font: inherit;
+
+    &:disabled {
+      background: #AC9980;
+      border: 1px solid #7E7365;
+      color:  #ccc;
+      cursor: default;
+    }
+
+    &:hover:disabled {
+      background: #AC9980;
+      color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  .Label {
+    padding: 10px;
+    font-weight: bold;
+    width: 80px;
+  }
+
+  .Less {
+    background: #D39952;
+    color: white;
+
+    &:hover,
+    &:active {
+      background: #DAA972;
+      color: white;
+    }
+  }
+
+  .More {
+    background: #8F5E1E;
+    color: white;
+
+    &:hover,
+    &:active {
+      background: #99703F;
+      color: white;
+    }
+
+  }
+}
+
+
