@@ -26,6 +26,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     axios.get('/ingredients.json')
       .then(response => this.setState({ingredients: response.data}))
       .catch(error => this.setState({error: true}))
@@ -80,25 +81,26 @@ class BurgerBuilder extends Component {
   }
   
   purchaseContinueHandler = () => {
-    this.setState({loading: true})
-    const order = {
-      ingredients: this.state.ingredients,
-      toltalPrice: this.state.totalPrice,
-      customer: {
-        address: {
-          street: '101 Nam Cao',
-          zipCode: '70000',
-          country: 'Viet Nam'
-        },
-        name: 'Hoang Tien',
-        email: 'Hoangtjent9@gmail.com'
-      },
-      deliveryMethod: 'Faster'
-    }
+    // this.setState({loading: true})
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   toltalPrice: this.state.totalPrice,
+    //   customer: {
+    //     address: {
+    //       street: '101 Nam Cao',
+    //       zipCode: '70000',
+    //       country: 'Viet Nam'
+    //     },
+    //     name: 'Hoang Tien',
+    //     email: 'Hoangtjent9@gmail.com'
+    //   },
+    //   deliveryMethod: 'Faster'
+    // }
 
-    axios.post('/orders.json', order)
-      .then(response => this.setState({loading: false, purchasing: false}))
-      .catch(error => this.setState({loading: false, purchasing: false}))
+    // axios.post('/orders.json', order)
+    //   .then(response => this.setState({loading: false, purchasing: false}))
+    //   .catch(error => this.setState({loading: false, purchasing: false}))
+    this.props.history.push('/checkout')
   }
 
   render() {

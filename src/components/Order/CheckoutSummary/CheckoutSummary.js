@@ -9,8 +9,8 @@ const CheckoutSummary = props => (
         <div style={{width: '300px', margin: 'auto'}}>
             <Burger ingrediented={props.ingredients}/>
         </div>
-        <Button btnType='Dangger'>Cancel</Button>
-        <Button btnType='Susscess'>Continue</Button>
+        <Button btnType='Danger'>Cancel</Button>
+        <Button btnType='Success'>Continue</Button>
     </div>
 
 )
