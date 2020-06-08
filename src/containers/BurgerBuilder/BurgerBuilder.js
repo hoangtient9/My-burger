@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    axios.get('/ingredients')
+    axios.get('/ingredients.json')
       .then(response => this.setState({ingredients: response.data}))
       .catch(error => this.setState({error: true}))
   }
@@ -108,8 +108,8 @@ class BurgerBuilder extends Component {
     for (const key in disableInfo) {
       disableInfo[key] = disableInfo[key] <= 0
     }
-    let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
     let orderSummary = null;
+    let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
 
     if (this.state.ingredients) {
       burger = (
