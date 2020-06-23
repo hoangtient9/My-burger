@@ -33,39 +33,6 @@ class BurgerBuilder extends Component {
     return sum > 0;
   }
 
-  // addIngredientHandler = (type) => {
-  //   const oldCount = this.state.ingredients[type];
-  //   const updatedCount = oldCount + 1;
-  //   const updatedIngredients = {
-  //     ...this.state.ingredients
-  //   }
-  //   updatedIngredients[type] = updatedCount;
-
-  //   const oldPrice = this.state.totalPrice;
-  //   const updatedPrice = oldPrice + INGREDIENTS__PRICE[type];
-
-  //   this.setState({totalPrice: updatedPrice, ingredients: updatedIngredients})
-  //   this.updatePurchasable(updatedIngredients)
-  // }
-
-  // removeIngredientHandler = (type) => {
-  //   const oldCount = this.state.ingredients[type];
-  //   if (oldCount <= 0) {
-  //     return;
-  //   }
-  //   const updatedCount = oldCount - 1;
-  //   const updatedIngredients = {
-  //     ...this.state.ingredients
-  //   }
-  //   updatedIngredients[type] = updatedCount;
-
-  //   const oldPrice = this.state.totalPrice;
-  //   const updatedPrice = oldPrice - INGREDIENTS__PRICE[type];
-
-  //   this.setState({totalPrice: updatedPrice, ingredients: updatedIngredients})
-  //   this.updatePurchasable(updatedIngredients)
-  // }
-
   purchaseHandler = () => {
     this.setState({purchasing: true})
   }
@@ -75,18 +42,7 @@ class BurgerBuilder extends Component {
   }
   
   purchaseContinueHandler = () => {
-
-    const queryParams = [];
-    queryParams.push('price=' + this.state.totalPrice)
-
-    for(const i in this.props.ings) {
-      queryParams.push(encodeURIComponent(i) + '=' + this.props.ings[i])
-    }
-    const queryString = queryParams.join('&')
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
-    })
+    this.props.history.push('/checkout')
   }
 
   render() {
