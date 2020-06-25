@@ -116,7 +116,7 @@ class ContactData extends Component {
   }
   
   orderhandler = (event) => {
-    event.preventdefault()
+    // event.preventdefault()
 
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
