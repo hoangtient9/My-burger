@@ -23,7 +23,7 @@ class ContactData extends Component {
         validation: {
           required: true,
           minLength: 5,
-          maxLength: 8
+          maxLength: 200
         },
         valid: false,
         touched: false
@@ -36,7 +36,8 @@ class ContactData extends Component {
         },
         value: '',
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -95,6 +96,7 @@ class ContactData extends Component {
     },
     formIsValid: false
   }
+
   checckValidity = (value, rules) => {
     let isValid = true;
     if (!rules) {
@@ -112,11 +114,21 @@ class ContactData extends Component {
       isValid = value.length <= rules.maxLength && isValid
     }
 
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid
+  }
+
+  if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid
+  }
+
     return isValid;
   }
   
-  orderhandler = (event) => {
-    // event.preventdefault()
+  orderHandler = (event) => {
+    event.preventDefault();
 
     const formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
@@ -165,19 +177,19 @@ class ContactData extends Component {
     }
 
     let form = (
-      <form onSubmit={this.orderhandler}>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement =>   
             <Input 
+              key={formElement.id}
               elementType={formElement.config.elementType} 
               elementConfig={formElement.config.elementConfig} 
               value={formElement.config.value} 
-              key={formElement.id} 
               changed={event => this.formChangedHandler(event, formElement.id)}
               inValid={!formElement.config.valid}
               shouldValidate={formElement.config.validation}
               touched={formElement.config.touched}/> 
         )}
-        <Button btnType='Success' disabled={!this.state.formIsValid} clicked={this.orderhandler}>Order</Button>
+        <Button btnType='Success' disabled={!this.state.formIsValid}>Order</Button>
       </form>
     )
 
@@ -186,7 +198,7 @@ class ContactData extends Component {
     }
     return (
       <div className={classes.ContactData}>
-        <h2>Your contact</h2>
+        <h4>Enter your contact data</h4>
         {form}
       </div>
     )
