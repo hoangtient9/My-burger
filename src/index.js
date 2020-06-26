@@ -10,10 +10,12 @@ import './index.module.scss';
 import App from './App';
 import burgerBuilder from './store/reducer/burgerBuilder';
 import order from './store/reducer/order';
+import auth from './store/reducer/auth';
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilder,
-  order: order
+  order: order,
+  auth: auth
 }) 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
