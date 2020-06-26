@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
 
 import Input from '../../components/UI/Input/Input';
 import classes from './Auth.module.scss';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
+import * as actions from '../../store/actions/index';
 
 class Auth extends Component {
   state = {
@@ -22,7 +24,7 @@ class Auth extends Component {
         valid: false,
         touched: false,
       },
-      name: {
+      password: {
         elementType: "input",
         elementConfig: {
           type: "password",
@@ -39,6 +41,7 @@ class Auth extends Component {
       }
     },
     formIsValid: false,
+    isSignup: true
   };
 
   checckValidity = (value, rules) => {
@@ -73,12 +76,7 @@ class Auth extends Component {
   authHandler = (event) => {
     event.preventDefault();
 
-    const formData = {};
-    for (let formElementIdentifier in this.state.authForm) {
-      formData[formElementIdentifier] = this.state.authForm[
-        formElementIdentifier
-      ].value;
-    }
+    this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value, this.state.isSignup)
 
   };
 
@@ -107,6 +105,14 @@ class Auth extends Component {
     });
   };
 
+  switchAuthModeHandler = () => {
+    this.setState(prevState => {
+      return {
+        isSignup: !prevState.isSignup
+      }
+    })
+  }
+
   render() {
     const formElementsArray = [];
     for (let key in this.state.authForm) {
@@ -117,7 +123,7 @@ class Auth extends Component {
     }
 
     let form = (
-      <form onSubmit={this.orderHandler}>
+      <form onSubmit={this.authHandler}>
         {formElementsArray.map((formElement) => (
           <Input
             key={formElement.id}
@@ -130,10 +136,12 @@ class Auth extends Component {
             touched={formElement.config.touched}
           />
         ))}
-        <Button btnType="Success" disabled={!this.state.formIsValid}>
-          Submit
+        <Button btnType="Success" disabled={!this.state.formIsValid} btnAuth='BtnAuth'>
+          {this.state.isSignup ? 'SIGN UP' : 'SIGN IN'}
         </Button>
+        
       </form>
+      
     );
 
     if (this.props.loading) {
@@ -143,9 +151,18 @@ class Auth extends Component {
       <div className={classes.Auth}>
         <h4>Enter your acount data</h4>
         {form}
+        <Button btnType="Success" clicked={this.switchAuthModeHandler}>
+      {this.state.isSignup ? 'Sign In' : 'Sign Up'}
+    </Button>
       </div>
     );
   }
 }
 
-export default Auth;
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)) 
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Auth);
