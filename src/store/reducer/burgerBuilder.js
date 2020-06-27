@@ -4,7 +4,8 @@ import {updateObject} from '../ultility';
 const initialState = {
   ingredients: null,
   totalPrice: 4,
-  error: false
+  error: false,
+  building: false
 };
 
 const INGREDIENTS__PRICE = {
@@ -19,7 +20,8 @@ const addIngredient = (state, action) => {
   const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice + INGREDIENTS__PRICE[action.ingredientName]
+    totalPrice: state.totalPrice + INGREDIENTS__PRICE[action.ingredientName],
+    building: true
   }
   return updateObject(state, updatedState)
 }
@@ -29,7 +31,8 @@ const removeIngredient = (state, action) => {
   const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice - INGREDIENTS__PRICE[action.ingredientName]
+    totalPrice: state.totalPrice - INGREDIENTS__PRICE[action.ingredientName],
+    building: true
   }
   return updateObject(state, updatedState)
 }
@@ -43,7 +46,8 @@ const setIngredients = (state, action) => {
       meat: action.ingredients.meat,
     },
     totalPrice: 4,
-    error: false
+    error: false,
+    building: false
   })
 }
 
