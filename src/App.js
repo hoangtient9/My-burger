@@ -15,10 +15,11 @@ class App extends Component {
   componentDidMount() {
     this.props.onAuthCheckState()
   }
+
   render(){
     let routes = 
       <Switch>
-        <Route path='/checkout' component={Checkout}/>
+        <Route path='/auth' component={Auth}/>
         <Route path='/' exact component={BurgerBuilder}/>
         <Redirect to='/' />
       </Switch>
