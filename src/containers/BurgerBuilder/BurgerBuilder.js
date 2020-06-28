@@ -9,7 +9,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as Actions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 
 class BurgerBuilder extends Component {
@@ -101,11 +101,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onIngredientAdded: (ingName) => dispatch(Actions.addIngredient(ingName)),
-    onIngredientRemoved: (ingName) => dispatch(Actions.removeIngredient(ingName)),
-    onInitIngredients: () => dispatch(Actions.initIngredients()),
-    onPurchased: () => dispatch(Actions.purchaseInit()),
-    onSetAuthRedirectPath: (path) => dispatch(Actions.setAuthRedirectPath(path))
+    onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+    onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onPurchased: () => dispatch(actions.purchaseInit()),
+    onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
   }
 }
 
