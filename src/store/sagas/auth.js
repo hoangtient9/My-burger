@@ -1,12 +1,13 @@
-import {put, delay} from 'redux-saga/effects';
+import {put, delay, call} from 'redux-saga/effects';
 import axios from 'axios';
+import {key} from '../../key';
 
 import * as actions from '../actions';
 
 export function* logoutSaga() {
-    yield localStorage.removeItem('idToken');
-    yield localStorage.removeItem('userId');
-    yield localStorage.removeItem('expirationDate');
+    yield call([localStorage, 'removeItem'], 'idToken')
+    yield call([localStorage, 'removeItem'], 'userId')
+    yield call([localStorage, 'removeItem'], 'expirationDate')
     yield put(actions.logoutSucceed())
 }
 
@@ -23,9 +24,9 @@ export function* authUserSaga(action) {
         returnSecureToken: true
     }
 
-    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD2wwCJ_qjeaL8Am1hbRD1QfB11fJHPHTc';
+    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + key;
     if (!action.isSignup) {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD2wwCJ_qjeaL8Am1hbRD1QfB11fJHPHTc';
+        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + key;
     }
 
     try {
