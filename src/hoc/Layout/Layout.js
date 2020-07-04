@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Aux from '../Auxiliary/Auxiliary';
 import classes from './Layout.module.scss';
@@ -8,6 +8,8 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
 const Layout = props => {
   const [showSideDrawer, setShowSideDrawer] = useState(false)
+
+  const isAuth = useSelector(state => state.auth.token != null);
 
   const sideDrawerCloseHandler = () => {
     setShowSideDrawer(false)
@@ -19,8 +21,8 @@ const Layout = props => {
   
   return  (
     <Aux>
-      <SideDrawer open={showSideDrawer} closed={sideDrawerCloseHandler} isAuth={props.isAuth}/>
-      <Tollbar sideDrawerToggleClicked={sideDrawerToggleHandler} isAuth={props.isAuth}/>
+      <SideDrawer open={showSideDrawer} closed={sideDrawerCloseHandler} isAuth={isAuth}/>
+      <Tollbar sideDrawerToggleClicked={sideDrawerToggleHandler} isAuth={isAuth}/>
       <main className={classes.Content}>
           {props.children}
       </main>
@@ -28,10 +30,4 @@ const Layout = props => {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuth: state.auth.token != null
-  }
-}
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;

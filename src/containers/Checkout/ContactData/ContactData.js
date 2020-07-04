@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import classes from './ContactData.module.scss';
 import Button from '../../../components/UI/Button/Button';
@@ -96,6 +96,15 @@ const ContactData = props =>  {
     }
   ) 
   const [formIsValid, setFormIsValid] = useState(false)
+
+  const dispatch = useDispatch();
+  const onBurgerOrder = (orderData, token) => dispatch(orderActions.purchaseBurger(orderData, token));
+
+  const ings = useSelector(state => state.burgerBuilder.ingredients);
+  const price = useSelector(state => state.burgerBuilder.totalPrice); 
+  const loading = useSelector(state => state.order.loading);
+  const token = useSelector(state =>  state.auth.token);
+  const userId = useSelector(state => state.auth.userId); 
   
   const orderHandler = (event) => {
     event.preventDefault();
@@ -106,14 +115,13 @@ const ContactData = props =>  {
     }
 
     const order = {
-      ingredients: props.ings,
-      totalPrice: props.price,
+      ingredients: ings,
+      totalPrice: price,
       orderData: formData,
-      userId: props.userId
+      userId: userId
     };
 
-    props.onBurgerOrder(order, props.token);
-
+    onBurgerOrder(order, token);
   }
 
   const formChangedHandler = (event, inputIdentifier) => {
@@ -161,7 +169,7 @@ const ContactData = props =>  {
     </form>
   )
 
-  if (props.loading) {
+  if (loading) {
     form = <Spinner />
   }
   return (
@@ -172,20 +180,4 @@ const ContactData = props =>  {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    ings: state.burgerBuilder.ingredients,
-    price: state.burgerBuilder.totalPrice,
-    loading: state.order.loading,
-    token: state.auth.token,
-    userId: state.auth.userId
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onBurgerOrder: (orderData, token) => dispatch(orderActions.purchaseBurger(orderData, token))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorhandler(ContactData, axios));
+export default withErrorhandler(ContactData, axios);

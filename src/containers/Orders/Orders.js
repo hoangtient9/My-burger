@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React, {useEffect, useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Order from '../../components/Order/Order';
 import axios from '../../axios-orders';
@@ -8,14 +8,22 @@ import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Orders = props => {
-    const {onFetchOrders, token, userId} = props;
+
+    const dispatch = useDispatch();
+    const onFetchOrders = useCallback((token, userId) => dispatch(actions.fetchOrders(token, userId)), [dispatch]);
+
+    const ordersData = useSelector(state => state.order.orders);
+    const loading = useSelector(state => state.order.loading);
+    const token = useSelector(state => state.auth.token);
+    const userId = useSelector(state => state.auth.userId);
+
     useEffect(() => {
         onFetchOrders(token, userId);
     }, [onFetchOrders, token, userId])
 
     let orders = <Spinner />;
-    if (!props.loading) {
-        orders = props.orders.map(order => <Order ingredients={order.ingredients} price={order.totalPrice} key={order.id} />)
+    if (!loading) {
+        orders = ordersData.map(order => <Order ingredients={order.ingredients} price={order.totalPrice} key={order.id} />)
     }
     return (
         <div>
@@ -24,19 +32,4 @@ const Orders = props => {
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        orders: state.order.orders,
-        loading: state.order.loading,
-        token: state.auth.token,
-        userId: state.auth.userId
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onFetchOrders: (token, userId) => dispatch(actions.fetchOrders(token, userId))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)( withErrorHandler(Orders, axios))
+export default withErrorHandler(Orders, axios);

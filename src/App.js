@@ -1,6 +1,6 @@
-import React, { useEffect, lazy, Suspense} from 'react';
+import React, { useEffect, lazy, Suspense, useCallback} from 'react';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import './App.module.scss';
 import Layout from './hoc/Layout/Layout';
@@ -14,7 +14,12 @@ const Checkout = lazy(() =>  import('./containers/Checkout/Checkout'))
 const Orders = lazy(() =>  import('./containers/Orders/Orders'))
 
 const App = props => {
-  const {onAuthCheckState} = props
+
+  const dispatch = useDispatch();
+  const onAuthCheckState= useCallback(() => dispatch(actions.authCheckState()), [dispatch]);
+
+  const isAuthenticated = useSelector(state => state.auth.token != null);
+
   useEffect(() => {
     onAuthCheckState()
   }, [onAuthCheckState])
@@ -25,7 +30,7 @@ const App = props => {
       <Route path='/' exact component={BurgerBuilder}/>
       <Redirect to='/' />
     </Switch>
-  if (props.isAuthenticated) {
+  if (isAuthenticated) {
     routes = 
       <Switch>
         <Route path='/checkout' render={props => <Checkout {...props}/>}/>
@@ -47,16 +52,4 @@ const App = props => {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.token != null
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuthCheckState: () => dispatch(actions.authCheckState())
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(App);

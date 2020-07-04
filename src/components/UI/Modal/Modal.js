@@ -4,15 +4,14 @@ import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = props => {
+  let attachedClasses = [classes.Modal, classes.Close];
+  if (props.show) {
+    attachedClasses = [classes.Modal, classes.Open];
+  }
   return (
     <Aux>
       <Backdrop show={props.show} clicked={props.modalClose}/>
-      <div className={classes.Modal} style={
-        {
-          transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: props.show ? '1' : '0'
-        }
-      }>
+      <div className={attachedClasses.join(' ')}>
         {props.children}
       </div>
     </Aux>
@@ -20,5 +19,5 @@ const Modal = props => {
 };
 
 export default React.memo(Modal, (prevProps, nextProps) => {
-  return nextProps.show !== prevProps.show || nextProps.children !== prevProps.children
+  return nextProps.show === prevProps.show && nextProps.children === prevProps.children
 });
