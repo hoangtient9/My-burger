@@ -11,11 +11,11 @@
 }
 
 .InputElement {
+    display: block;
+    border: 1px solid #ccc;
     width: 100%;
     padding: 6px 10px;
     outline: none;
-    display: block;
-    border: 1px solid #ccc;
     font: inherit;;
 
     &:focus {

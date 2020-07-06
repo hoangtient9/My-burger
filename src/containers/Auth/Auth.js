@@ -9,7 +9,7 @@ import Button from '../../components/UI/Button/Button';
 import * as actions from '../../store/actions/index';
 import {updateObject, checckValidity} from '../../shared/ultility';
 
-const Auth = props => {
+const Auth = React.memo(props => {
   const [authForm, setAuthForm] = useState(
     {
       email: {
@@ -148,6 +148,6 @@ const Auth = props => {
   </Button>
     </div>
   );
-}
+})
 
 export default Auth;

@@ -7,7 +7,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-const Orders = props => {
+const Orders = React.memo(props => {
 
     const dispatch = useDispatch();
     const onFetchOrders = useCallback((token, userId) => dispatch(actions.fetchOrders(token, userId)), [dispatch]);
@@ -25,11 +25,12 @@ const Orders = props => {
     if (!loading) {
         orders = ordersData.map(order => <Order ingredients={order.ingredients} price={order.totalPrice} key={order.id} />)
     }
+    console.log('Orders rendering')
     return (
         <div>
             {orders}
         </div>  
     )
-}
+})
 
 export default withErrorHandler(Orders, axios);

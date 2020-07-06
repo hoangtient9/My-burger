@@ -1,17 +1,17 @@
 .Button {
-    background: transparent;
     border: none;
+    padding: 10px;
+    margin: 10px auto;
     color: white;
+    font: inherit;
+    background: transparent;
+    font-weight: bold;
     outline: none;
     cursor: pointer;
-    font: inherit;
-    padding: 10px;
-    margin: 10px;
-    font-weight: bold;
 
     &:first-of-type {
         margin-left: 0;
-        padding-left: 0;
+        // padding-left: 0;
     }
 
     &:disabled {
@@ -31,9 +31,9 @@
 .BtnAuth {
     // border: 1px solid #ccc;
     border-radius: 3px;
+    box-shadow: 2px 2px 3px #966909;
     background: #944317;
     color: white;
-    box-shadow: 2px 2px 3px #966909;
 
     &:first-of-type {
         padding: 10px;
@@ -41,10 +41,10 @@
     }
 
     &:disabled {
+        border: 1px solid #ccc;
+        // border: none;
+        color: #888;
         background: #C7C6C6;
         cursor: not-allowed;
-        border: 1px solid #ccc;
-        color: #888;
-        border: none;
       }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Order.module.scss'
 
-const Order = props => {
+const Order = React.memo(props => {
     const ingredients = []
     for(let key in props.ingredients) {
         ingredients.push({
@@ -29,6 +29,6 @@ const Order = props => {
             <p>Price: <strong>USD {Number.parseFloat(props.price).toFixed(2)}</strong></p>
         </div>
     )
-}
+})
 
 export default Order;

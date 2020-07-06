@@ -2,33 +2,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #e27b36;
   margin: 10px 0;
   width: 100%;
+  background: #e27b36;
 
   .OrderButton {
     background: #DAD735;
-    outline: none;
-    cursor: pointer;
+    padding: 15px 30px;
     border: 1px solid #966909;
-    color: #966909;
+    box-shadow: 2px 2px 3px #966909;
     font-family: inherit;
     font-size: 1.2rem;
-    padding: 15px 30px;
-    box-shadow: 2px 2px 3px #966909;
+    color: #966909;
+    outline: none;
+    cursor: pointer;
   
     &:hover,
     &:active {
-      background: #A0DB41;
       border: 1px solid #966909;
+      background: #A0DB41;
       color: #966909;
     }
   
     &:disabled {
-      background: #C7C6C6;
-      cursor: not-allowed;
       border: 1px solid #ccc;
+      background: #C7C6C6;
       color: #888;
+      cursor: not-allowed;
     }
   
     &:not(:disabled) {

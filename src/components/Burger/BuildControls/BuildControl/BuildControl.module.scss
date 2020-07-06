@@ -9,8 +9,8 @@
     padding: 5px;
     margin: 0 5px;
     border: 1px solid #AA6817;
-    cursor: pointer;
     outline: none;
+    cursor: pointer;
     font: inherit;
 
     &:disabled {
@@ -28,9 +28,9 @@
   }
 
   .Label {
+    width: 80px;
     padding: 10px;
     font-weight: bold;
-    width: 80px;
   }
 
   .Less {
@@ -45,8 +45,8 @@
   }
 
   .More {
-    background: #8F5E1E;
     color: white;
+    background: #8F5E1E;
 
     &:hover,
     &:active {

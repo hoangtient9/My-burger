@@ -8,7 +8,7 @@ const controls = [
   {label: 'Meat', type: 'meat'},
   {label: 'Salad', type: 'salad'},
 ]
-const BuildControls = props => (
+const BuildControls = React.memo(props => (
   <div className={classes.BuildControls}>
     <p>Current Price:<strong>{props.price.toFixed(2)}</strong></p>
     {
@@ -23,6 +23,6 @@ const BuildControls = props => (
     }
     <button className={classes.OrderButton} disabled={!props.purchasabled} onClick={props.show}>ORDER NOW</button>
   </div>
-)
+))
 
 export default BuildControls;

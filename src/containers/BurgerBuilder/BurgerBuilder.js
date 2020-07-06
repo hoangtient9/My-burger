@@ -11,16 +11,16 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 
-const BurgerBuilder = props => {
+const BurgerBuilder = React.memo( props => {
   const [purchasing, setPurchasing] = useState(false)
 
   const dispatch = useDispatch();
 
-  const onIngredientAdded = ingName => dispatch(actions.addIngredient(ingName));
-  const onIngredientRemoved = ingName => dispatch(actions.removeIngredient(ingName));
+  const onIngredientAdded = useCallback(ingName => dispatch(actions.addIngredient(ingName)), [dispatch]);
+  const onIngredientRemoved = useCallback(ingName => dispatch(actions.removeIngredient(ingName)), [dispatch]);
   const onInitIngredients = useCallback(() => dispatch(actions.initIngredients()), [dispatch])
-  const onPurchased = () => dispatch(actions.purchaseInit());
-  const onSetAuthRedirectPath = path => dispatch(actions.setAuthRedirectPath(path));
+  const onPurchased = useCallback(() => dispatch(actions.purchaseInit()), [dispatch]);
+  const onSetAuthRedirectPath = useCallback(path => dispatch(actions.setAuthRedirectPath(path)), [dispatch]);
 
   const ings = useSelector(state => state.burgerBuilder.ingredients);
   const price = useSelector(state => state.burgerBuilder.totalPrice);
@@ -31,12 +31,12 @@ const BurgerBuilder = props => {
     onInitIngredients()
   }, [onInitIngredients])
 
-  const updatePurchasable = ingredients => {
+  const updatePurchasable = useCallback( ingredients => {
     const sum = Object.keys(ingredients)
       .map(igkey => ingredients[igkey])
       .reduce((sum, el) => sum + el, 0);
     return sum > 0;
-  }
+  }, [])
 
   const purchaseHandler = () => {
     if(isAuthenticated) {
@@ -47,9 +47,9 @@ const BurgerBuilder = props => {
     }
   }
 
-  const purchaseCancelHandler = () => {
+  const purchaseCancelHandler = useCallback(() => {
     setPurchasing(false)
-  }
+  }, [])
   
   const purchaseContinueHandler = () => {
     props.history.push('/checkout')
@@ -89,6 +89,8 @@ const BurgerBuilder = props => {
                     />;
   }
 
+  console.log('BurgerBuilder rendering')
+
   return (
     <Aux>
       {
@@ -101,6 +103,6 @@ const BurgerBuilder = props => {
       {burger}
     </Aux>
   )
-}
+})
 
 export default withErrorHandler(BurgerBuilder, axios);

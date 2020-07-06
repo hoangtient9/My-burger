@@ -5,7 +5,7 @@ import { useSelector} from 'react-redux';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import ContactData from './ContactData/ContactData';
 
-const Checkout = props => {
+const Checkout = React.memo(props => {
 
   const ings = useSelector(state => state.burgerBuilder.ingredients);
   const purchased = useSelector(state => state.order.purchased);
@@ -36,6 +36,6 @@ const Checkout = props => {
     )
   }
   return summary;
-}
+})
 
 export default Checkout;

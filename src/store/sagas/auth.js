@@ -12,7 +12,7 @@ export function* logoutSaga() {
 }
 
 export function* checkAuthTimeoutSaga(action) {
-    yield delay(action.expirationTime);
+    yield delay(action.expirationTime * 1000);
     yield put(actions.authLogout())
 }
 
@@ -55,7 +55,7 @@ export function* authCheckStateSaga() {
         } else {
             const userId = localStorage.getItem('userId')
             yield put(actions.authSuccess(token, userId))
-            yield put(actions.checkAuthTimeout(expirationDate.getTime() - new Date().getTime() / 1000))
+            yield put(actions.checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
         }
     }
 }

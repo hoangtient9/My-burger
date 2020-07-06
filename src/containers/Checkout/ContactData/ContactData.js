@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import classes from './ContactData.module.scss';
@@ -10,7 +10,7 @@ import * as orderActions from '../../../store/actions/index';
 import withErrorhandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import {updateObject, checckValidity} from '../../../shared/ultility';
 
-const ContactData = props =>  {
+const ContactData = React.memo(props =>  {
   const [orderForm, setOrderForm] = useState(
     {
       name: {
@@ -98,7 +98,7 @@ const ContactData = props =>  {
   const [formIsValid, setFormIsValid] = useState(false)
 
   const dispatch = useDispatch();
-  const onBurgerOrder = (orderData, token) => dispatch(orderActions.purchaseBurger(orderData, token));
+  const onBurgerOrder = useCallback((orderData, token) => dispatch(orderActions.purchaseBurger(orderData, token)), [dispatch]);
 
   const ings = useSelector(state => state.burgerBuilder.ingredients);
   const price = useSelector(state => state.burgerBuilder.totalPrice); 
@@ -178,6 +178,6 @@ const ContactData = props =>  {
       {form}
     </div>
   )
-}
+})
 
 export default withErrorhandler(ContactData, axios);

@@ -1,13 +1,13 @@
 .Modal {
     position: fixed;
-    z-index: 500;
-    background: white;
-    width: 80%;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 1px black;
-    padding: 16px;
     left: 10%;
     top: 30%;
+    z-index: 500;
+    width: 80%;
+    padding: 16px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px black;
+    background: white;
     transition: all 0.3s ease-out;
 
     @media (min-width: 600px) {

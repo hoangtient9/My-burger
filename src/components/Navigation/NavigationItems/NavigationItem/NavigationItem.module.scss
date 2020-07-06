@@ -4,9 +4,9 @@
     margin: 10px 0;
     
     a {
+        display: block;
         text-decoration: none;
         color: #8F5C2C;
-        display: block;
 
         &:hover,
         &:active,
@@ -18,23 +18,23 @@
 
     @media (min-width: 500px) {
         display: flex;
+        align-items: center;
         width: auto;
         margin: 0;
-        align-items: center;
         
         a {
+            display: block;
+            padding: 16px 10px;
+            border-bottom: 4px solid transparent;
             text-decoration: none;
             color: white;
-            border-bottom: 4px solid transparent;
-            padding: 16px 10px;
-            display: block;
     
             &:hover,
             &:active,
             &.active {
+                border-bottom: 4px solid #40A4C8;
                 color: white;
                 background: #8F5C2C;
-                border-bottom: 4px solid #40A4C8;
     
             }
         }
